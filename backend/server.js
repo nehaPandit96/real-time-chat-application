@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const http = require("http");
 const cors = require("cors");
 const socketio = require("socket.io");
+const authRoutes = require("./routes/auth");
 
 const app = express();
 const server = http.createServer(app);
@@ -10,6 +11,7 @@ const server = http.createServer(app);
 // Middleware
 app.use(express.json());
 app.use(cors()); // This enables CORS for all routes
+app.use("/api/auth", authRoutes);
 
 // Configure Socket.io with CORS
 const io = socketio(server, {
@@ -33,7 +35,7 @@ io.on("connection", (socket) => {
     io.to(msg.room).emit("message", msg.message);
   });
 
-  socket.on("disconnect", () => {
+  socket.on("disconnect", (msg) => {
     io.to(msg.room).emit("message", "A user has left the chat");
   });
 });

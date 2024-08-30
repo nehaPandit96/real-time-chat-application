@@ -1,6 +1,5 @@
-// frontend/src/context/AuthContext.js
-import React, { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import React, { createContext, useState } from "react";
+import axios from "../axios";
 
 const AuthContext = createContext();
 
@@ -12,8 +11,8 @@ const AuthProvider = ({ children }) => {
     setUser(res.data.user);
   };
 
-  const register = async (username, password) => {
-    await axios.post("/api/auth/register", { username, password });
+  const register = async (fullName, username, password) => {
+    await axios.post("/api/auth/register", { fullName, username, password });
   };
 
   return (
