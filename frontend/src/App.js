@@ -1,29 +1,61 @@
 // frontend/src/App.js
-import React from "react";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import React, { useContext } from "react";
+import { Route, Link, Routes, useNavigate } from "react-router-dom";
 import Home from "./components/Home";
 import Chat from "./components/Chat";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import { AuthContext } from "./context/AuthContext";
+import "./App.css";
 
 const App = () => {
+  const { logout } = useContext(AuthContext);
+  const username = localStorage.getItem("username");
+  const navigate = useNavigate();
+
+  const logoutBtn = async (e) => {
+    e.preventDefault();
+    try {
+      await logout();
+
+      navigate("/");
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
   return (
-    <Router>
+    <>
       <div className="flex bg-sky-700 text-zinc-50 p-5 px-3">
         {/* Navigation bar with links */}
-        <nav className="mb-4">
-          <Link to="/" className="text-lg mr-4">
-            Home
-          </Link>
-          <Link to="/chat" className="text-lg mr-4">
-            Chat
-          </Link>
-          <Link to="/login" className="text-lg mr-4">
-            Login
-          </Link>
-          <Link to="/register" className="text-lg">
-            Register
-          </Link>
+
+        <nav className="navbarContainer px-4">
+          <div>
+            <Link to="/" className="text-lg mr-4">
+              Home
+            </Link>
+            <Link to="/chat" className="text-lg mr-4">
+              Chat
+            </Link>
+          </div>
+
+          <div>
+            {username && (
+              <>
+                <span className="username">Welcome {username}</span>
+                <button onClick={logoutBtn}>Logout</button>
+              </>
+            )}
+            {!username && (
+              <>
+                <Link to="/login" className="text-lg mr-4">
+                  Login
+                </Link>
+                <Link to="/register" className="text-lg">
+                  Register
+                </Link>
+              </>
+            )}
+          </div>
         </nav>
       </div>
 
@@ -35,7 +67,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
         </Routes>
       </div>
-    </Router>
+    </>
   );
 };
 

@@ -13,6 +13,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(username, password);
+      localStorage.setItem("username", username);
       navigate("/chat");
     } catch (err) {
       setError(

@@ -16,7 +16,8 @@ const Register = () => {
       // Call the register function from AuthContext
       await register(fullName, username, password);
       // Redirect to the chat page upon successful registration
-      navigate("/chat");
+      localStorage.setItem("username", username);
+      navigate("/login");
     } catch (err) {
       // Set error message
       setError(

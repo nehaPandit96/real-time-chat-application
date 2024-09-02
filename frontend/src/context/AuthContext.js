@@ -7,16 +7,34 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const login = async (username, password) => {
-    const res = await axios.post("/api/auth/login", { username, password });
-    setUser(res.data.user);
+    try {
+      const res = await axios.post("/api/auth/login", { username, password });
+      setUser(res.data.user);
+    } catch (error) {
+      console.error("Login failed:", error.response.data.msg);
+    }
   };
 
-  const register = async (fullName, username, password) => {
-    await axios.post("/api/auth/register", { fullName, username, password });
+  const register = async (username, password) => {
+    try {
+      await axios.post("/api/auth/register", { username, password });
+    } catch (error) {
+      console.error("Registration failed:", error.response.data.msg);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await axios.post("/api/auth/logout");
+      setUser(null);
+      localStorage.clear();
+    } catch (error) {
+      console.error("Logout failed:", error.response.data.msg);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register }}>
+    <AuthContext.Provider value={{ user, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

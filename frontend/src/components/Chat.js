@@ -2,14 +2,15 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:4000"); // Adjust the URL to match your backend server
+const socket = io("http://localhost:4000");
 
 const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    socket.emit("joinRoom", { username: "", room: "general" });
+    const username = localStorage.getItem("username");
+    socket.emit("joinRoom", { username: username, room: "general" });
     socket.on("message", (msg) => {
       setMessages((prevMessages) => [...prevMessages, msg]);
     });

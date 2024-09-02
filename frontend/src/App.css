@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.navbarContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+}
+
+.username {
+  text-transform: capitalize;
+  padding-right: 1rem;
+}
