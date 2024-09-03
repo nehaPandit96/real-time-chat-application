@@ -35,9 +35,9 @@ app.use("/api/auth", authRoutes);
 // Configure Socket.io with CORS
 const io = socketio(server, {
   cors: {
-    origin: "http://localhost:3000", // Allow only this origin to connect
-    methods: ["GET", "POST"], // Allow these HTTP methods
-    credentials: true, // Allow credentials (e.g., cookies)
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 

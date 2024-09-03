@@ -1,5 +1,5 @@
 // frontend/src/App.js
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Route, Link, Routes, useNavigate } from "react-router-dom";
 import Home from "./components/Home";
 import Chat from "./components/Chat";
@@ -7,11 +7,13 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import { AuthContext } from "./context/AuthContext";
 import "./App.css";
+import ProtectedRoute from "./context/ProtectedRoute";
 
 const App = () => {
   const { logout } = useContext(AuthContext);
   const username = localStorage.getItem("username");
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
 
   const logoutBtn = async (e) => {
     e.preventDefault();
@@ -62,7 +64,14 @@ const App = () => {
       <div className="container mx-auto p-4">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/chat" element={<Chat />} />
+          <Route
+            path="/chat"
+            element={
+              <ProtectedRoute>
+                <Chat />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>

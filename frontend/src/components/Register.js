@@ -7,22 +7,17 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
   const { register } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
     try {
-      // Call the register function from AuthContext
-      await register(fullName, username, password);
-      // Redirect to the chat page upon successful registration
-      localStorage.setItem("username", username);
-      navigate("/login");
+      await register(username, password);
+      navigate("/login"); // Redirect to chat page
     } catch (err) {
-      // Set error message
-      setError(
-        err.response?.data?.msg || "Registration failed. Please try again."
-      );
+      setError(err.response?.data?.msg || "Login failed. Please try again.");
     }
   };
 

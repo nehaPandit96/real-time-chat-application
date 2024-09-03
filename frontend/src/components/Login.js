@@ -6,19 +6,18 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(username, password);
-      localStorage.setItem("username", username);
+      const res = await login(username, password);
+      localStorage.setItem("username", res.user.username);
       navigate("/chat");
     } catch (err) {
-      setError(
-        err.response?.data?.msg || "Registration failed. Please try again."
-      );
+      setError(err.response?.data?.msg || "Login failed. Please try again.");
     }
   };
 

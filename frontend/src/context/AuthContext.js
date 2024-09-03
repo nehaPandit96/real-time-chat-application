@@ -7,20 +7,19 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const login = async (username, password) => {
-    try {
-      const res = await axios.post("/api/auth/login", { username, password });
-      setUser(res.data.user);
-    } catch (error) {
-      console.error("Login failed:", error.response.data.msg);
-    }
+    const res = await axios.post("/api/auth/login", { username, password });
+    setUser(res.data.user);
+    return res.data;
   };
 
-  const register = async (username, password) => {
-    try {
-      await axios.post("/api/auth/register", { username, password });
-    } catch (error) {
-      console.error("Registration failed:", error.response.data.msg);
-    }
+  const register = async (fullName, username, password) => {
+    const res = await axios.post("/api/auth/register", {
+      fullName,
+      username,
+      password,
+    });
+    setUser(res.data.user);
+    return res.data;
   };
 
   const logout = async () => {
@@ -32,7 +31,6 @@ const AuthProvider = ({ children }) => {
       console.error("Logout failed:", error.response.data.msg);
     }
   };
-
   return (
     <AuthContext.Provider value={{ user, login, register, logout }}>
       {children}
