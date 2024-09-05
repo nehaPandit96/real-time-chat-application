@@ -1,5 +1,5 @@
 // frontend/src/App.js
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Route, Link, Routes, useNavigate } from "react-router-dom";
 import Home from "./components/Home";
 import Chat from "./components/Chat";
@@ -13,7 +13,6 @@ const App = () => {
   const { logout } = useContext(AuthContext);
   const username = localStorage.getItem("username");
   const navigate = useNavigate();
-  const [message, setMessage] = useState("");
 
   const logoutBtn = async (e) => {
     e.preventDefault();
