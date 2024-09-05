@@ -60,7 +60,7 @@ const App = () => {
         </nav>
       </div>
 
-      <div className="container mx-auto p-4">
+      <div>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
