@@ -78,7 +78,7 @@ cd frontend
 npm start
 ```
 
-Access the frontend at [http://localhost:3000] http://localhost:3000 and the backend at [http://localhost:4000] http://localhost:4000.
+Access the frontend at  http://localhost:3000 and the backend at http://localhost:4000.
 
 ## How to Use
 
