@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import bgImage from "../images/img1.jpg";
 
 const Home = () => {
@@ -26,6 +27,14 @@ const Home = () => {
           efficient API handling—all beautifully integrated with React.js for a
           smooth user experience.
         </p>
+        <div className="p-5 mt-4">
+          <Link
+            to="/login"
+            className="text-lg mr-4 bg-blue-900 py-4 px-8 rounded text-gray-100"
+          >
+            Login
+          </Link>
+        </div>
       </div>
     </div>
   );
